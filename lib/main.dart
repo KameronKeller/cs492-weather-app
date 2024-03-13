@@ -1,5 +1,9 @@
 import 'dart:convert';
 
+import 'package:cs492_weather_app/models/daily_forecasts.dart';
+import 'package:cs492_weather_app/widgets/settings_header_text.dart';
+import 'package:cs492_weather_app/widgets/weekly_forecast.dart';
+
 import 'components/location/location.dart';
 import 'package:flutter/material.dart';
 import 'models/user_location.dart';
@@ -48,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<WeatherForecast> _forecasts = [];
   List<WeatherForecast> _forecastsHourly = [];
   UserLocation? _location;
+  DailyForecasts? _dailyForecasts;
 
   void setLocation(UserLocation location) async {
     setState(() {
@@ -67,9 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // We collect both the twice-daily forecasts and the hourly forecasts
       List<WeatherForecast> forecasts = await getWeatherForecasts(_location!, false);
       List<WeatherForecast> forecastsHourly = await getWeatherForecasts(_location!, true);
+      DailyForecasts dailyForecast = DailyForecasts.fromWeatherForecasts(forecasts, forecastsHourly);
       setState(() {
         _forecasts = forecasts;
         _forecastsHourly = forecastsHourly;
+        _dailyForecasts = dailyForecast;
       });
     }
   }
@@ -152,11 +159,20 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: WeatherScreen(
-          getLocation: getLocation,
-          getForecasts: getForecasts,
-          getForecastsHourly: getForecastsHourly,
-          setLocation: setLocation),
+      body: Column(
+        children: [
+          WeatherScreen(
+              getLocation: getLocation,
+              getForecasts: getForecasts,
+              getForecastsHourly: getForecastsHourly,
+              setLocation: setLocation),
+          const SizedBox(height: 50),
+          _dailyForecasts != null ? 
+            WeeklyForecast(dailyForecasts: _dailyForecasts!)
+            : Container(),
+          // ListView.builder(itemBuilder: itemBuilder)
+        ],
+      ),
       endDrawer: Drawer(
         child: settingsDrawer(),
       ),
@@ -200,24 +216,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ElevatedButton(
               onPressed: _closeEndDrawer, child: const Text("Close Settings"))
         ],
-      ),
-    );
-  }
-}
-
-class SettingsHeaderText extends StatelessWidget {
-  final String text;
-  final BuildContext context;
-  const SettingsHeaderText(
-      {super.key, required this.context, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
   }
