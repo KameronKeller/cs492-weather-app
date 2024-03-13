@@ -20,10 +20,10 @@ class DailyForecasts {
   Map<int, Day> _forecastDays = {};
   // final List<WeatherForecast> forecasts;
 
-  DailyForecasts();
+  // DailyForecasts();
 
-  factory DailyForecasts.fromWeatherForecasts(List<WeatherForecast> forecasts, List<WeatherForecast> hourlyForecasts) {
-    final DailyForecasts dailyForecasts = DailyForecasts();
+  DailyForecasts(List<WeatherForecast> forecasts, List<WeatherForecast> hourlyForecasts) {
+    // final DailyForecasts dailyForecasts = DailyForecasts();
     final Map<int, Day> forecastDays = {};
     for (final forecast in forecasts) {
       int indexOfWeek = forecast.startTime.weekday;
@@ -58,8 +58,8 @@ class DailyForecasts {
       }
 
     }
-    dailyForecasts._forecastDays = forecastDays;
-    return dailyForecasts;
+    _forecastDays = forecastDays;
+    // return dailyForecasts;
   }
 
   List<int> get sortedKeys {
