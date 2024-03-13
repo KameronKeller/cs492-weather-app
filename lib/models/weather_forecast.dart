@@ -6,20 +6,26 @@ import 'package:http/http.dart' as http;
 class WeatherForecast {
   final String name;
   final bool isDaytime;
+  final DateTime startTime;
+  final DateTime endTime;
   final int temperature;
   final String windSpeed;
   final String windDirection;
   final String shortForecast;
   final String detailedForecast;
+  final String iconUrl;
 
   const WeatherForecast({
     required this.name,
     required this.isDaytime,
+    required this.startTime,
+    required this.endTime,
     required this.temperature,
     required this.windSpeed,
     required this.windDirection,
     required this.shortForecast,
     required this.detailedForecast,
+    required this.iconUrl,
   });
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
@@ -27,20 +33,26 @@ class WeatherForecast {
       {
         'name': String name,
         'isDaytime': bool isDaytime,
+        'startTime': String startTime,
+        'endTime': String endTime,
         'temperature': int temperature,
         'windSpeed': String windSpeed,
         'windDirection': String windDirection,
         'shortForecast': String shortForecast,
         'detailedForecast': String detailedForecast,
+        'icon': String iconUrl,
       } =>
         WeatherForecast(
           name: name,
           isDaytime: isDaytime,
+          startTime: DateTime.parse(startTime).toLocal(),
+          endTime: DateTime.parse(endTime).toLocal(),
           temperature: temperature,
           windSpeed: windSpeed,
           windDirection: windDirection,
           shortForecast: shortForecast,
           detailedForecast: detailedForecast,
+          iconUrl: iconUrl,
         ),
       _ => throw const FormatException('Failed to load Weather Forecast.'),
     };
