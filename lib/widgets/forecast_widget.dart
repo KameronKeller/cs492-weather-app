@@ -23,7 +23,7 @@ class ForecastWidget extends StatelessWidget {
       children: [
         LocationTextWidget(location: location),
         TemperatureWidget(forecasts: forecasts),
-        DescriptionWidget(forecasts: forecasts)
+        // DescriptionWidget(forecasts: forecasts)
       ],
     );
   }

@@ -14,6 +14,8 @@ class WeatherForecast {
   final String shortForecast;
   final String detailedForecast;
   final String iconUrl;
+  final double dewPoint;
+  final int probabilityOfPrecipitation;
 
   const WeatherForecast({
     required this.name,
@@ -26,37 +28,34 @@ class WeatherForecast {
     required this.shortForecast,
     required this.detailedForecast,
     required this.iconUrl,
+    required this.dewPoint,
+    required this.probabilityOfPrecipitation,
   });
 
   factory WeatherForecast.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'name': String name,
-        'isDaytime': bool isDaytime,
-        'startTime': String startTime,
-        'endTime': String endTime,
-        'temperature': int temperature,
-        'windSpeed': String windSpeed,
-        'windDirection': String windDirection,
-        'shortForecast': String shortForecast,
-        'detailedForecast': String detailedForecast,
-        'icon': String iconUrl,
-      } =>
-        WeatherForecast(
-          name: name,
-          isDaytime: isDaytime,
-          startTime: DateTime.parse(startTime).toLocal(),
-          endTime: DateTime.parse(endTime).toLocal(),
-          temperature: temperature,
-          windSpeed: windSpeed,
-          windDirection: windDirection,
-          shortForecast: shortForecast,
-          detailedForecast: detailedForecast,
-          iconUrl: iconUrl,
-        ),
-      _ => throw const FormatException('Failed to load Weather Forecast.'),
-    };
+    int? probabilityOfPrecipitation = (json['probabilityOfPrecipitation'] as Map<String, dynamic>)['value'] as int?;
+
+    probabilityOfPrecipitation ??= 0;
+
+    return WeatherForecast(
+        name: json['name'] as String,
+        isDaytime: json['isDaytime'] as bool,
+        startTime: DateTime.parse(json['startTime'] as String).toLocal(),
+        endTime: DateTime.parse(json['endTime'] as String).toLocal(),
+        temperature: json['temperature'] as int,
+        windSpeed: json['windSpeed'] as String,
+        windDirection: json['windDirection'] as String,
+        shortForecast: json['shortForecast'] as String,
+        detailedForecast: json['detailedForecast'] as String,
+        iconUrl: json['icon'] as String,
+        dewPoint: convertCelsiusToFahrenheit((json['dewpoint'] as Map<String, dynamic>)['value'].toDouble()),
+        probabilityOfPrecipitation: probabilityOfPrecipitation,
+        );
   }
+}
+
+double convertCelsiusToFahrenheit(double celsius) {
+  return celsius * 9 / 5 + 32;
 }
 
 Future<List<WeatherForecast>> getHourlyForecasts(UserLocation location) async {

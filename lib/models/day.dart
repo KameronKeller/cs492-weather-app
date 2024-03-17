@@ -18,6 +18,8 @@ class Day {
   final String shortForecast;
   final String iconUrl;
   final List<FlSpot> hourlyTempForecast;
+  final List<FlSpot> hourlyDewpointForecast;
+  final List<FlSpot> hourlyPrecipForecast;
   // final bool isToday;
   // wx icon
   // final ? weatherIcon;
@@ -29,7 +31,9 @@ class Day {
     required this.indexOfWeek,
     required this.shortForecast,
     required this.iconUrl,
-    required this.hourlyTempForecast
+    required this.hourlyTempForecast,
+    required this.hourlyDewpointForecast,
+    required this.hourlyPrecipForecast,
     // required this.isToday,
     // required this.weatherIcon,
   });

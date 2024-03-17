@@ -35,7 +35,7 @@ class DailyForecasts {
       // this key = year + month + day to ensure that
       // the key is always increasing
       // rather than the day of the week which resets each Sunday
-      int increasingKey = year + month+ day;
+      int increasingKey = year + month + day;
 
       if (forecastDays.containsKey(increasingKey)) {
         if (forecast.temperature > forecastDays[increasingKey]!.high)
@@ -44,16 +44,33 @@ class DailyForecasts {
         if (forecast.temperature < forecastDays[increasingKey]!.low)
           {forecastDays[increasingKey]!.low = forecast.temperature;}
       } else {
-        List<FlSpot> hourlyTempForecast = generateHourlyTempData(indexOfWeek, hourlyForecasts);
-        // List<FlSpot> hourlyHumdityForecast = generateHourlyHumidityData(indexOfWeek, hourlyForecasts);
-        // List<FlSpot> hourlyPrecipForecast = generateHourlyPrecipData(indexOfWeek, hourlyForecasts);
+        List<FlSpot> hourlyTempForecast = generateHourlyData(
+          getYVariable: (forecast) => forecast.temperature.toDouble(),
+          day: day,
+          hourlyForecasts: hourlyForecasts);
+
+        List<FlSpot> hourlyDewpointForecast = generateHourlyData(
+          getYVariable: (forecast) => forecast.dewPoint,
+          day: day,
+          hourlyForecasts: hourlyForecasts);
+        
+
+        List<FlSpot> hourlyPrecipForecast = generateHourlyData(
+          getYVariable: (forecast) => forecast.probabilityOfPrecipitation.toDouble(),
+          day: day,
+          hourlyForecasts: hourlyForecasts
+        );
+
+
         forecastDays[increasingKey] = Day(
           high: forecast.temperature,
           low: forecast.temperature,
           indexOfWeek: indexOfWeek,
           shortForecast: forecast.shortForecast,
           iconUrl: forecast.iconUrl,
-          hourlyTempForecast: hourlyTempForecast
+          hourlyTempForecast: hourlyTempForecast,
+          hourlyDewpointForecast: hourlyDewpointForecast,
+          hourlyPrecipForecast: hourlyPrecipForecast,
         );
       }
 
@@ -76,11 +93,12 @@ class DailyForecasts {
     return days;
   }
 
-  List<FlSpot> generateHourlyTempData(int dayOfWeek, List<WeatherForecast> hourlyForecasts) {
+  List<FlSpot> generateHourlyData({required Function(WeatherForecast) getYVariable, required int day, required List<WeatherForecast> hourlyForecasts}) {
     List<FlSpot> tempData = [];
     for (final forecast in hourlyForecasts) {
-      if (forecast.startTime.weekday == dayOfWeek) {
-        tempData.add(FlSpot(forecast.startTime.hour as double, forecast.temperature as double));
+      var dayz = forecast.startTime.day;
+      if (forecast.startTime.day == day) {
+        tempData.add(FlSpot(forecast.startTime.hour.toDouble(), getYVariable(forecast)));
       }
     }
     return tempData;

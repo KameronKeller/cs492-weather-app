@@ -53,7 +53,7 @@ class WeatherIcons {
   }
 
   static String extractWeatherConditionKey(String url) {
-    RegExp regExp = RegExp(r'/land/(day|night)/(\w+)[,?]');
+    RegExp regExp = RegExp(r'\/land\/(day|night)\/(\w+)');
 
     return regExp.firstMatch(url)!.group(2)!;
   }

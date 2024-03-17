@@ -22,20 +22,41 @@ class WeeklyForecast extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, 
                   MaterialPageRoute(builder: 
-                    (context) => DetailedForecastScreen()
+                    (context) => DetailedForecastScreen(day: currentDay)
                   )
                 );
               },
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(currentDay.dayOfWeek),
-                  Image(
-                    image: WeatherIcons.getIconAssetImage(currentDay.iconUrl),
-                    height: 50,
-                    width: 50
+                  Container(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        Text(currentDay.dayOfWeek),
+                      ],
+                    ),
                   ),
-                  Text('H: ${currentDay.high}, L: ${currentDay.low}'),
+                  Container(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        Image(
+                          image: WeatherIcons.getIconAssetImage(currentDay.iconUrl),
+                          height: 50,
+                          width: 50
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    child: Column(
+                      children: [
+                        Text('H: ${currentDay.high}, L: ${currentDay.low}'),
+                      ],
+                    ),
+                  ),
                 ],
               )
               // title: Text(dailyForecasts.forecastDays[index].iconUrl),

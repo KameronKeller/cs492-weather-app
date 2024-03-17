@@ -1,4 +1,5 @@
 import 'package:cs492_weather_app/models/weather_forecast.dart';
+import 'package:cs492_weather_app/models/weather_icons.dart';
 import 'package:flutter/material.dart';
 
 class TemperatureWidget extends StatelessWidget {
@@ -11,13 +12,37 @@ class TemperatureWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 500,
-      height: 60,
-      child: Center(
-        child: Text('${forecasts.elementAt(0).temperature}º',
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${forecasts.elementAt(0).temperature}º',
             style: Theme.of(context).textTheme.displayLarge),
-      ),
+          ],
+        ),
+        Column(
+          children: [
+            Image(
+              image: WeatherIcons.getIconAssetImage(forecasts.elementAt(0).iconUrl),
+              height: 50,
+              width: 50
+            ),
+            Text(forecasts.elementAt(0).shortForecast,
+              style: Theme.of(context).textTheme.bodyMedium)
+          ],
+        )
+      ],
     );
-  }
+  //   return SizedBox(
+  //     width: 500,
+  //     height: 60,
+  //     child: Center(
+  //       child: Text('${forecasts.elementAt(0).temperature}º',
+  //           style: Theme.of(context).textTheme.displayLarge),
+  //     ),
+  //   );
+  // }
+}
 }

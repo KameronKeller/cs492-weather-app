@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // We collect both the twice-daily forecasts and the hourly forecasts
       List<WeatherForecast> forecasts = await getWeatherForecasts(_location!, false);
       List<WeatherForecast> forecastsHourly = await getWeatherForecasts(_location!, true);
-      DailyForecasts dailyForecast = DailyForecasts.fromWeatherForecasts(forecasts, forecastsHourly);
+      DailyForecasts dailyForecast = DailyForecasts(forecasts, forecastsHourly);
       setState(() {
         _forecasts = forecasts;
         _forecastsHourly = forecastsHourly;
@@ -169,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 50),
           _dailyForecasts != null ? 
             WeeklyForecast(dailyForecasts: _dailyForecasts!)
+            // TODO: or nothing, not an empty container
             : Container(),
           // ListView.builder(itemBuilder: itemBuilder)
         ],
