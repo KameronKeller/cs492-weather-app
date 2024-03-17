@@ -1,5 +1,5 @@
-import 'package:cs492_weather_app/components/location/location.dart';
-import 'package:cs492_weather_app/components/weatherScreen/weather_screen.dart';
+import 'package:cs492_weather_app/widgets/location/location.dart';
+import 'package:cs492_weather_app/screens/weather_screen.dart';
 import 'package:flutter/material.dart';
 
 class LocationWidget extends StatelessWidget {

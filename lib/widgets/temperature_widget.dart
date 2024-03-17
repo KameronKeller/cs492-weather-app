@@ -29,9 +29,9 @@ class TemperatureWidget extends StatelessWidget {
               height: 50,
               width: 50
             ),
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Text(forecasts.elementAt(0).shortForecast,
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ))
@@ -39,14 +39,5 @@ class TemperatureWidget extends StatelessWidget {
         )
       ],
     );
-  //   return SizedBox(
-  //     width: 500,
-  //     height: 60,
-  //     child: Center(
-  //       child: Text('${forecasts.elementAt(0).temperature}º',
-  //           style: Theme.of(context).textTheme.displayLarge),
-  //     ),
-  //   );
-  // }
 }
 }

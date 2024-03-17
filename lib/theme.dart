@@ -8,7 +8,7 @@ class WeatherTheme {
     fontFamily: GoogleFonts.dosis().fontFamily,
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Color(0xff5F6D6E),
+      seedColor: const Color(0xff5F6D6E),
       ),
   );
 
@@ -16,7 +16,7 @@ class WeatherTheme {
     fontFamily: GoogleFonts.dosis().fontFamily,
     brightness: Brightness.dark,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: Color(0x5F6D6E),
+      seedColor: const Color(0xff5F6D6E),
       brightness: Brightness.dark,
       // secondary: Color(0x523423)
     ),

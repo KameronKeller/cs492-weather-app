@@ -20,12 +20,8 @@ class Day {
   final List<FlSpot> hourlyTempForecast;
   final List<FlSpot> hourlyDewpointForecast;
   final List<FlSpot> hourlyPrecipForecast;
-  // final bool isToday;
-  // wx icon
-  // final ? weatherIcon;
 
   Day({
-    // set defaults at
     required this.high,
     required this.low,
     required this.indexOfWeek,
@@ -34,8 +30,6 @@ class Day {
     required this.hourlyTempForecast,
     required this.hourlyDewpointForecast,
     required this.hourlyPrecipForecast,
-    // required this.isToday,
-    // required this.weatherIcon,
   });
 
   String get dayOfWeek {

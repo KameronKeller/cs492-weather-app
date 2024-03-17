@@ -74,7 +74,6 @@ flutter:
     - assets/sql/get_all.sql
     - assets/sql/delete.sql
     - assets/weather_icons/
-    - assets/sunrise-thunderstorm-sheri-l-art.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

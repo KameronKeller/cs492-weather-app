@@ -4,12 +4,11 @@ import 'package:cs492_weather_app/models/daily_forecasts.dart';
 import 'package:cs492_weather_app/theme.dart';
 import 'package:cs492_weather_app/widgets/settings_header_text.dart';
 import 'package:cs492_weather_app/widgets/weekly_forecast.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'components/location/location.dart';
+import 'widgets/location/location.dart';
 import 'package:flutter/material.dart';
 import 'models/user_location.dart';
-import 'components/weatherScreen/weather_screen.dart';
+import 'screens/weather_screen.dart';
 import 'models/weather_forecast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -152,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: _location != null ? Text("${_location!.city}, ${_location!.state}") : Text("Weather"),
+        title: _location != null ? Text("${_location!.city}, ${_location!.state}") : const Text("Weather"),
         backgroundColor: Theme.of(context).colorScheme.tertiary,
         titleTextStyle: TextStyle(
           fontSize: 20,
@@ -178,9 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
           const SizedBox(height: 20),
           _dailyForecasts != null ? 
             WeeklyForecast(dailyForecasts: _dailyForecasts!, location: _location)
-            // TODO: or nothing, not an empty container
-            : SizedBox.shrink(),
-          // ListView.builder(itemBuilder: itemBuilder)
+            // Show nothing if the _dailyForecasts is null
+            : const SizedBox.shrink(),
         ],
       ),
       endDrawer: Drawer(

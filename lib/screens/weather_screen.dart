@@ -1,9 +1,6 @@
-import 'package:cs492_weather_app/models/weather_forecast.dart';
 import 'package:cs492_weather_app/widgets/forecast_widget.dart';
 import 'package:cs492_weather_app/widgets/location_widget.dart';
-import '../../models/user_location.dart';
 import 'package:flutter/material.dart';
-import '../location/location.dart';
 
 class WeatherScreen extends StatefulWidget {
   final Function getLocation;
