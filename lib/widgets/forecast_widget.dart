@@ -21,7 +21,6 @@ class ForecastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LocationTextWidget(location: location),
         TemperatureWidget(forecasts: forecasts),
         // DescriptionWidget(forecasts: forecasts)
       ],

@@ -29,8 +29,12 @@ class TemperatureWidget extends StatelessWidget {
               height: 50,
               width: 50
             ),
+            SizedBox(height: 10,),
             Text(forecasts.elementAt(0).shortForecast,
-              style: Theme.of(context).textTheme.bodyMedium)
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ))
           ],
         )
       ],

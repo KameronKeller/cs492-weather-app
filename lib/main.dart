@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:cs492_weather_app/models/daily_forecasts.dart';
+import 'package:cs492_weather_app/theme.dart';
 import 'package:cs492_weather_app/widgets/settings_header_text.dart';
 import 'package:cs492_weather_app/widgets/weekly_forecast.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'components/location/location.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +31,11 @@ class MyApp extends StatelessWidget {
         builder: (_, mode, __) {
           return MaterialApp(
             title: 'CS 492 Weather App',
-            theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            theme: WeatherTheme.lightTheme,
+            darkTheme: WeatherTheme.darkTheme,
             themeMode: mode,
-            home: MyHomePage(title: "CS492 Weather App", notifier: _notifier),
+            // textTheme: GoogleFonts.dosisTextTheme(Theme.of(context).textTheme),
+            home: MyHomePage(title: "CS492 Weather", notifier: _notifier),
           );
         });
   }
@@ -149,28 +152,34 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: _location != null ? Text("${_location!.city}, ${_location!.state}") : Text("Weather"),
+        backgroundColor: Theme.of(context).colorScheme.tertiary,
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          color: Theme.of(context).colorScheme.onTertiary
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: 'Open Settings',
             onPressed: _openEndDrawer,
+            color: Theme.of(context).colorScheme.onTertiary,
           )
         ],
       ),
       body: Column(
         children: [
+          const SizedBox(height: 20),
           WeatherScreen(
               getLocation: getLocation,
               getForecasts: getForecasts,
               getForecastsHourly: getForecastsHourly,
               setLocation: setLocation),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           _dailyForecasts != null ? 
-            WeeklyForecast(dailyForecasts: _dailyForecasts!)
+            WeeklyForecast(dailyForecasts: _dailyForecasts!, location: _location)
             // TODO: or nothing, not an empty container
-            : Container(),
+            : SizedBox.shrink(),
           // ListView.builder(itemBuilder: itemBuilder)
         ],
       ),
